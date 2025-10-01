@@ -2,25 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BondPoints - Profile</title>
+  <title>Profile</title>
 </head>
 <body>
-  <h1>Profile</h1>
-  <p>Name: <span id="name"></span></p>
-  <p>Email: <span id="email"></span></p>
-  <p>Bond Points: <span id="bondPoints"></span></p>
-  <p>Total Bonds: <span id="totalBonds"></span></p>
-
-  <h2>Notifications</h2>
+  <h2>Profile</h2>
+  <button onclick="loadProfile()">Load Profile</button>
+  <div id="profile"></div>
+  <h3>Notifications</h3>
   <ul id="notifications"></ul>
 
-  <h2>Granted Bonds</h2>
-  <ul id="grantedBonds"></ul>
+  <script>
+    async function loadProfile() {
+      const userId = localStorage.getItem("userId");
+      if (!userId) return alert("Please login first");
 
-  <button onclick="window.location.href='create-bond.html'">Create/Grant Bond</button>
+      const res = await fetch(`http://localhost:5000/api/user/${userId}`);
+      const user = await res.json();
 
-  <!-- Link external JS file -->
-  <script src="js/profile.js"></script>
+      document.getElementById("profile").innerHTML =
+        `<p><b>Name:</b> ${user.name}</p>
+         <p><b>Email:</b> ${user.email}</p>
+         <p><b>Bond Points:</b> ${user.bondPoints}</p>
+         <p><b>Total Bonds:</b> ${user.totalBonds}</p>`;
+
+      const ul = document.getElementById("notifications");
+      ul.innerHTML = "";
+      user.notifications.forEach(n => {
+        const li = document.createElement("li");
+        li.innerText = `${n.message} (from ${n.fromUser?.username || "System"})`;
+        ul.appendChild(li);
+      });
+    }
+  </script>
 </body>
 </html>

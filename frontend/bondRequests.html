@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bond Requests</title>
+</head>
+<body>
+  <h2>Incoming Bond Requests</h2>
+  <button onclick="loadRequests()">Load Requests</button>
+  <ul id="incoming"></ul>
+
+  <h2>Granted Bonds</h2>
+  <button onclick="loadGranted()">Load Granted Bonds</button>
+  <ul id="granted"></ul>
+
+  <script>
+    async function loadRequests() {
+      const userId = localStorage.getItem("userId");
+      const res = await fetch(`http://localhost:5000/api/bonds/incoming/${userId}`);
+      const bonds = await res.json();
+      const ul = document.getElementById("incoming");
+      ul.innerHTML = "";
+      bonds.forEach(b => {
+        const li = document.createElement("li");
+        li.innerHTML = `${b.fromUser.username} wants to bond 
+          <button onclick="respond('${b._id}', 'accept')">Accept</button> 
+          <button onclick="respond('${b._id}', 'reject')">Reject</button>`;
+        ul.appendChild(li);
+      });
+    }
+
+    async function respond(bondId, action) {
+      const res = await fetch("http://localhost:5000/api/bonds/respond", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bondId, action, pointsGranted: 10 })
+      });
+      const data = await res.json();
+      alert(data.message);
+      loadRequests();
+    }
+
+    async function loadGranted() {
+      const userId = localStorage.getItem("userId");
+      const res = await fetch(`http://localhost:5000/api/bonds/granted/${userId}`);
+      const bonds = await res.json();
+      const ul = document.getElementById("granted");
+      ul.innerHTML = "";
+      bonds.forEach(b => {
+        const li = document.createElement("li");
+        li.innerText = `${b.fromUser.username} granted you ${b.pointsGranted} points`;
+        ul.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>

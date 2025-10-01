@@ -2,34 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Register</title>
+  <title>Login</title>
 </head>
 <body>
-  <h2>Register</h2>
-  <form id="registerForm">
+  <h2>Login</h2>
+  <form id="loginForm">
     <input type="text" id="username" placeholder="Username" required><br>
-    <input type="text" id="name" placeholder="Full Name" required><br>
-    <input type="email" id="email" placeholder="Email" required><br>
     <input type="password" id="password" placeholder="Password" required><br>
-    <button type="submit">Register</button>
+    <button type="submit">Login</button>
   </form>
   <p id="msg"></p>
 
   <script>
-    document.getElementById("registerForm").addEventListener("submit", async e => {
+    document.getElementById("loginForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: document.getElementById("username").value,
-          name: document.getElementById("name").value,
-          email: document.getElementById("email").value,
           password: document.getElementById("password").value
         })
       });
       const data = await res.json();
-      document.getElementById("msg").innerText = data.message || JSON.stringify(data);
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.user.id);
+        document.getElementById("msg").innerText = "Login successful!";
+      } else {
+        document.getElementById("msg").innerText = data.message;
+      }
     });
   </script>
 </body>
