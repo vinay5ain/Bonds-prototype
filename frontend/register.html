@@ -2,21 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Bonds</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <h2>Register</h2>
-  <form id="registerForm">
-    <input type="text" id="username" placeholder="Username" required><br>
-    <input type="text" id="name" placeholder="Full Name" required><br>
-    <input type="email" id="email" placeholder="Email" required><br>
-    <input type="password" id="password" placeholder="Password" required><br>
-    <button type="submit">Register</button>
-  </form>
-  <p id="msg"></p>
-
+<body class="auth-page">
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="brand" href="index.html">BONDS</a>
+      <div class="nav-links">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <button id="loginBtn" class="btn ghost">Log in</button>
+        <button id="registerBtn" class="btn primary" style="display:none">Register</button>
+        <button id="profileBtn" class="btn primary" style="display:none">Profile</button>
+        <button id="logoutBtn" class="btn ghost" style="display:none">Logout</button>
+      </div>
+    </div>
+  </nav>
+  <div class="auth-container">
+    <h2>Create your account</h2>
+    <p class="muted">Join Bonds in seconds.</p>
+    <form id="registerForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input class="input" type="text" id="username" placeholder="e.g. johndoe" required>
+      </div>
+      <div class="field">
+        <label for="name">Full name</label>
+        <input class="input" type="text" id="name" placeholder="John Doe" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input class="input" type="email" id="email" placeholder="john@example.com" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input class="input" type="password" id="password" placeholder="••••••••" required>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Create account</button>
+        <span class="helper">Already have an account? <a class="link" href="login.html">Log in</a></span>
+      </div>
+    </form>
+    <p id="msg" class="muted" style="margin-top:8px;"></p>
+  </div>
+  <script src="app.js"></script>
   <script>
-    document.getElementById("registerForm").addEventListener("submit", async e => {
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
       e.preventDefault();
       const res = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
@@ -29,7 +64,89 @@
         })
       });
       const data = await res.json();
-      document.getElementById("msg").innerText = data.message || JSON.stringify(data);
+      if (res.ok) {
+        window.location.href = "login.html";
+      } else {
+        document.getElementById("msg").innerText = data.message || "Registration failed";
+      }
+    });
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Bonds</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="auth-page">
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="brand" href="index.html">BONDS</a>
+      <div class="nav-links">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <button id="loginBtn" class="btn ghost">Log in</button>
+        <button id="registerBtn" class="btn primary" style="display:none">Register</button>
+        <button id="profileBtn" class="btn primary" style="display:none">Profile</button>
+        <button id="logoutBtn" class="btn ghost" style="display:none">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-container">
+    <h2>Create your account</h2>
+    <p class="muted">Join Bonds in seconds.</p>
+    <form id="registerForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input class="input" type="text" id="username" placeholder="e.g. johndoe" required>
+      </div>
+      <div class="field">
+        <label for="name">Full name</label>
+        <input class="input" type="text" id="name" placeholder="John Doe" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input class="input" type="email" id="email" placeholder="john@example.com" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input class="input" type="password" id="password" placeholder="••••••••" required>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Create account</button>
+        <span class="helper">Already have an account? <a class="link" href="login.html">Log in</a></span>
+      </div>
+    </form>
+    <p id="msg" class="muted" style="margin-top:8px;"></p>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const res = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        window.location.href = "login.html";
+      } else {
+        document.getElementById("msg").innerText = data.message || "Registration failed";
+      }
     });
   </script>
 </body>

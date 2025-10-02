@@ -2,33 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Send Bond Request</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Bond - Bonds</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <h2>Send Bond Request</h2>
-  <form id="bondForm">
-    <input type="text" id="toUsername" placeholder="Recipient Username" required><br>
-    <button type="submit">Send</button>
-  </form>
-  <p id="msg"></p>
-
+<body class="auth-page">
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="brand" href="index.html">BONDS</a>
+      <div class="nav-links">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <button id="loginBtn" class="btn ghost" style="display:none">Log in</button>
+        <button id="registerBtn" class="btn primary" style="display:none">Register</button>
+        <button id="profileBtn" class="btn primary">Profile</button>
+        <button id="logoutBtn" class="btn ghost">Logout</button>
+      </div>
+    </div>
+  </nav>
+  <div class="auth-container">
+    <h2>Send a Bond Request</h2>
+    <form id="sendBondForm">
+      <div class="field">
+        <label for="toUsername">Recipient username</label>
+        <input class="input" type="text" id="toUsername" placeholder="e.g. janedoe" required>
+      </div>
+      <div class="field">
+        <label for="message">Message (optional)</label>
+        <input class="input" type="text" id="message" placeholder="Thanks for helping with the release!">
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit">Send request</button>
+        <button type="button" class="btn" id="toProfile">Back to profile</button>
+      </div>
+    </form>
+    <p id="msg" class="muted" style="margin-top:8px;"></p>
+  </div>
+  <script src="app.js"></script>
   <script>
-    document.getElementById("bondForm").addEventListener("submit", async e => {
+    document.getElementById('toProfile').addEventListener('click', function(){ window.location.href = 'profile.html'; });
+    document.getElementById('sendBondForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const fromUserId = localStorage.getItem("userId");
-      if (!fromUserId) return alert("Login required");
-
-      const res = await fetch("http://localhost:5000/api/bonds/request", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fromUserId,
-          toUsername: document.getElementById("toUsername").value
-        })
+      var fromUserId = localStorage.getItem('userId');
+      if (!fromUserId) { window.location.href = 'login.html'; return; }
+      var res = await fetch('http://localhost:5000/api/bonds/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fromUserId: fromUserId, toUsername: document.getElementById('toUsername').value })
       });
-      const data = await res.json();
-      document.getElementById("msg").innerText = data.message;
+      var data = await res.json();
+      document.getElementById('msg').textContent = data.message || 'Sent';
     });
   </script>
 </body>
 </html>
+
+

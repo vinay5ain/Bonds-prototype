@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bonds - Connect, Reward, Grow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="brand" href="#home">BONDS</a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+        <button id="loginBtn" class="btn ghost">Log in</button>
+        <button id="registerBtn" class="btn primary">Register</button>
+        <button id="profileBtn" class="btn primary" style="display:none">Profile</button>
+        <button id="logoutBtn" class="btn ghost" style="display:none">Logout</button>
+      </div>
+    </div>
+  </nav>
+  <header id="home" class="hero">
+    <div class="container">
+      <h1>Build stronger bonds with meaningful rewards</h1>
+      <p>Send bonds, track points, and celebrate connections. Perfect for teams and communities.</p>
+      <div class="cta-row">
+        <button id="heroGetStarted" class="btn primary">Get started</button>
+        <button id="heroLearnMore" class="btn">Learn more</button>
+      </div>
+    </div>
+  </header>
+  <section id="about" class="section">
+    <div class="container">
+      <h2>About</h2>
+      <p class="muted">Bonds lets you recognize contributions with points and messages. Keep morale high.</p>
+      <div class="grid" style="margin-top:14px;">
+        <div class="card"><h3>Simple</h3><p class="muted">Send and receive bonds in seconds.</p></div>
+        <div class="card"><h3>Motivating</h3><p class="muted">Celebrate wins and build a culture of appreciation.</p></div>
+        <div class="card"><h3>Insightful</h3><p class="muted">Track totals and trends across your community.</p></div>
+      </div>
+    </div>
+  </section>
+  <section id="testimonials" class="section" style="background:#f1f5f9; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+    <div class="container">
+      <h2>Testimonials</h2>
+      <div class="grid" style="margin-top:14px;">
+        <div class="card"><p>“Team recognition skyrocketed.”</p><p class="muted">— Priya</p></div>
+        <div class="card"><p>“The easiest way to say thanks.”</p><p class="muted">— Omar</p></div>
+        <div class="card"><p>“Our culture is more positive now.”</p><p class="muted">— Ana</p></div>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Contact</h2>
+      <p class="muted">Questions? Email <a class="link" href="mailto:support@example.com">support@example.com</a>.</p>
+    </div>
+  </section>
+  <footer class="footer">© <span id="year"></span> Bonds. All rights reserved.</footer>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById("heroGetStarted").addEventListener("click", function () {
+      var hasToken = !!localStorage.getItem("token");
+      window.location.href = hasToken ? "profile.html" : "register.html";
+    });
+    document.getElementById("heroLearnMore").addEventListener("click", function () {
+      document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bonds - Connect, Reward, Grow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="brand" href="#home">BONDS</a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+        <button id="loginBtn" class="btn ghost">Log in</button>
+        <button id="registerBtn" class="btn primary">Register</button>
+        <button id="profileBtn" class="btn primary" style="display:none">Profile</button>
+        <button id="logoutBtn" class="btn ghost" style="display:none">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="container">
+      <h1>Build stronger bonds with meaningful rewards</h1>
+      <p>Send bonds, track points, and celebrate connections. Designed for teams, communities, and friends.</p>
+      <div class="cta-row">
+        <button id="heroGetStarted" class="btn primary">Get started</button>
+        <button id="heroLearnMore" class="btn">Learn more</button>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2>About</h2>
+      <p class="muted">Bonds helps you recognize contributions with lightweight points and simple messages. Keep momentum high and morale higher.</p>
+      <div class="grid" style="margin-top:14px;">
+        <div class="card"><h3>Simple</h3><p class="muted">Clean, intuitive flows to send and receive bonds in seconds.</p></div>
+        <div class="card"><h3>Motivating</h3><p class="muted">Celebrate wins and make appreciation part of your culture.</p></div>
+        <div class="card"><h3>Insightful</h3><p class="muted">Track totals and trends to see how your community connects.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="section" style="background:#f1f5f9; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+    <div class="container">
+      <h2>Testimonials</h2>
+      <div class="grid" style="margin-top:14px;">
+        <div class="card"><p>“We started using Bonds and team recognition skyrocketed.”</p><p class="muted">— Priya, Engineering Manager</p></div>
+        <div class="card"><p>“It’s the easiest way to say thanks and track impact.”</p><p class="muted">— Omar, Community Lead</p></div>
+        <div class="card"><p>“Our culture feels more positive and connected now.”</p><p class="muted">— Ana, People Ops</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Contact</h2>
+      <p class="muted">Have questions? Reach out at <a class="link" href="mailto:support@example.com">support@example.com</a>.</p>
+    </div>
+  </section>
+
+  <footer class="footer">© <span id="year"></span> Bonds. All rights reserved.</footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.getElementById("heroGetStarted").addEventListener("click", function () {
+      const hasToken = !!localStorage.getItem("token");
+      if (hasToken) {
+        window.location.href = "profile.html";
+      } else {
+        window.location.href = "register.html";
+      }
+    });
+    document.getElementById("heroLearnMore").addEventListener("click", function () {
+      document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
+
